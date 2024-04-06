@@ -3,7 +3,7 @@ package programacionestructurada.tp4;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class RepeticionesNumMayor {
+public class RepeticionesNumMayorAL {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Integer> numeros = new ArrayList<>();
