@@ -28,6 +28,8 @@ int main() {
 			for(int j=0;j<columnas;j++){
 				if(numeros[i][j] == numeros[j][i]) {
 					band = 'V';
+				}else {
+					band = 'F';
 				}
 			}
 		}
