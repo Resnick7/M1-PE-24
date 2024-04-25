@@ -1,48 +1,32 @@
-/*Asignacion dinamica de arreglos
-
-new: reserva el numero de bytes solicitado por la declaraacion
-delete: librea un bloque de bytes reservado con anterioridad
+/*
+Rellenar un array de 10 números, posteriormente utilizando punteros 
+indicar cuales son números pares y su posicion en memoria
 */
 
 #include<iostream>
 #include<conio.h>
-#include<stdlib.h>//Funciona new y delete
 
 using namespace std;
 
-//Prototipo de Funcion: Firma o nombre del metodo
-void pedirNotas();
-void mostrarNotas();
-
-int numCalif, *calif; //Variable global, dura en todo el sistema
-
 int main(){
-	pedirNotas();
-	mostrarNotas();
+	int numeros[10], *dir_numeros;
 	
-	delete[] calif; //liberamos el espacio en bytes utilizando anteriormente
-
+	for(int i=0;i<10;i++){
+		cout<<i+1<<". Digite un numero: ";
+		cin>>numeros[i];
+	}
+	
+	dir_numeros = numeros;
+	
+	for(int i=0;i<10;i++){
+		if(*dir_numeros%2==0){
+			cout<<"Numero par: "<<*dir_numeros<<endl;
+			cout<<"Posicion: "<<dir_numeros<<endl;
+		}
+		dir_numeros++;
+	}
+	
+	
 	getch();
 	return 0;
-}
-//Si escribimos el metodo antes del main no necesitamos escribir la firma
-void pedirNotas(){
-	cout<<"Ingrese el numero de calificaciones: ";
-	cin>>numCalif;
-	
-	calif = new int[numCalif]; //Creamos el arreglo dinamico, es un arreglo sin nombre, tiene tamanio. Un puntero nos permite manipular un arreglo sin nombre
-	
-	for(int i=0; i<numCalif; i++){
-		cout<<"Ingrese una nota: ";
-		cin>>calif[i];
-	}
-
-}
-
-void mostrarNotas(){
-	cout<<"\n\nMostrando notas del ususario:\n";
-	
-	for(int i=0; i<numCalif; i++){
-		cout<<calif[i]<<endl;
-	}
 }
