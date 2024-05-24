@@ -1,11 +1,3 @@
-/*
-En este Ejercicio deben crear 2 LISTAS.
-EN TODOS LOS CASOS deben crear un menu que permita ingresar dinamicamente el llenado de las mismas.
-Y siempre deben existir estructuras de tipo CLIENTE (nombre, dni, edad)
-comparar una cola con la otra y decirme si hay edades REPETIDAS.
-Luego de eso deben crear otra funcion que me permita decir el MAYOR DNI de cada estructura.
-
-*/
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
@@ -24,14 +16,15 @@ struct Nodo {
 };
 
 void menu();
-Cliente cargarCliente();
+void cargarCliente(Cliente &);
 void insertarCliente(Nodo*&, Cliente);
 void mostrarLista(Nodo*);
 void buscarCliente(Nodo*, int);
-void eliminarCliente(Nodo*&, int);
-void eliminarLista(Nodo*&);
+void buscarEdadesRepetidas(Nodo*, Nodo*);
+void calcularMayorDni(Nodo*&);
 
-Nodo* lista = NULL;
+Nodo *lista1 = NULL;
+Nodo *lista2 = NULL;
 
 int main() {
     menu();
@@ -40,48 +33,56 @@ int main() {
 }
 
 void menu() {
-    int opcion, dato;
+    int opcion,dato;
+    Cliente c1,c2;
 
     do {
         cout << "\t.:MENU:.\n";
-        cout << "1. Insertar cliente a la lista\n";
-        cout << "2. Mostrar los clientes de la lista\n";
-        cout << "3. Buscar un cliente en la lista\n";
-        cout << "4. Eliminar un cliente de la lista\n";
-        cout << "5. Vaciar lista\n";
+        cout << "1. Insertar cliente a la primer lista\n";
+        cout << "2. Insertar cliente a la segunda lista\n";
+        cout << "3. Mostrar los clientes de las listas\n";
+        cout << "4. Comprobar si hay edades repetidas entre listas\n";
+        cout << "5. Buscar mayor DNI de cada lista\n";
         cout << "6. Salir\n";
         cout << "Opcion: ";
         cin >> opcion;
 
         switch (opcion) {
-            case 1: {
-                Cliente c = cargarCliente();
-                insertarCliente(lista, c);
+            case 1:
+            	cout<<"\tAgregando un Nuevo Cliente  a lista 1"<<endl;
+                cargarCliente(c1);
+                insertarCliente(lista1, c1);
                 cout << "\n";
                 system("pause");
                 break;
-            }
             case 2:
-                mostrarLista(lista);
-                cout << "\n";
+            	cout<<"\tAgregando un Nuevo Cliente  a lista 1"<<endl;
+            	cargarCliente(c2);
+            	insertarCliente(lista2, c2);
+            	cout << "\n";
                 system("pause");
                 break;
             case 3:
-                cout << "\nDigite el DNI a buscar: ";
-                cin >> dato;
-                buscarCliente(lista, dato);
+            	cout<<"\tLista 1: ";
+                mostrarLista(lista1);
+                cout<<"\tLista 2: ";
+                mostrarLista(lista2);
                 cout << "\n";
                 system("pause");
                 break;
             case 4:
-                cout << "\nDigite el DNI del cliente que desea eliminar: ";
-                cin >> dato;
-                eliminarCliente(lista, dato);
+            	//Buscar edades repetidas
+                cout << "\tBuscando edades repetidas... \n";
+                buscarEdadesRepetidas(lista1, lista2);
                 cout << "\n";
                 system("pause");
                 break;
             case 5:
-                eliminarLista(lista);
+            	//Mayor DNI de ambas listas
+            	cout<<"El mayor DNI de la lista 1 es: ";
+                calcularMayorDni(lista1);
+                cout<<"El mayor DNI de la lista 2 es: ";
+                calcularMayorDni(lista2);
                 cout << "\n";
                 system("pause");
                 break;
@@ -90,17 +91,15 @@ void menu() {
     } while (opcion != 6);
 }
 
-Cliente cargarCliente() {
-    Cliente c;
-    cout << "\nIngrese el nombre del cliente: ";
-    cin.ignore();
-    getline(cin, c.nombre);
-    cout << "\nIngrese el dni del cliente: ";
-    cin >> c.dni;
-    cout << "\nIngrese la edad del cliente: ";
-    cin >> c.edad;
-
-    return c;
+void cargarCliente(Cliente &c){
+	fflush(stdin);
+	cout<<"Nombre: ";
+	getline(cin,c.nombre);
+	cout<<"DNI: ";
+	cin>>c.dni;
+	cout<<"Edad: ";
+	cin>>c.edad;
+	cout<<"\n";
 }
 
 void insertarCliente(Nodo*& lista, Cliente c) {
@@ -128,7 +127,7 @@ void insertarCliente(Nodo*& lista, Cliente c) {
         nuevo_nodo->siguiente = aux1;
     }
 
-    cout << "\tElemento " << c.dni << " insertado a lista correctamente\n";
+    cout << "\tElemento con DNI: " << c.dni << " insertado a lista correctamente\n";
 }
 
 void mostrarLista(Nodo* lista) {
@@ -139,58 +138,43 @@ void mostrarLista(Nodo* lista) {
     }
 }
 
-void buscarCliente(Nodo* lista, int dni) {
+void buscarEdadesRepetidas(Nodo* lista1, Nodo* lista2) {
     bool encontrado = false;
-    Nodo* actual = lista;
+    Nodo* actual1 = lista1;
+    Nodo* actual2 = lista2;
 
-    while ((actual != NULL) && (actual->c.dni <= dni)) {
-        if (actual->c.dni == dni) {
+    while (actual1 != NULL) {
+        while (actual2 != NULL){
+        	if (actual1->c.edad == actual2->c.edad) {
             encontrado = true;
+            cout<<"\tSe repite la edad: "<<actual1->c.edad<<endl;
             break;
+			}
+			actual2 = actual2->siguiente;
+        }
+        actual1 = actual1->siguiente;
+    }
+
+    encontrado ? cout<<"Busqueda completada" : cout<<"No se repiten edades";
+}
+
+void calcularMayorDni(Nodo *&lista){
+	if(lista == NULL){
+		cout<<"La lista esta vacia"<<endl;
+		return;
+	}
+
+	Nodo* actual = lista;
+	int mayorDni = 0;
+
+	while (actual != NULL) {
+        if (actual->c.dni > mayorDni) {
+            mayorDni = actual->c.dni;
         }
         actual = actual->siguiente;
     }
 
-    if (encontrado) {
-        cout << "Cliente encontrado: " << actual->c.nombre << ", DNI: " << actual->c.dni << ", Edad: " << actual->c.edad << endl;
-    } else {
-        cout << "Cliente no encontrado.\n";
-    }
-}
+    cout << mayorDni <<endl;
 
-void eliminarCliente(Nodo*& lista, int dni) {
-    if (lista != NULL) {
-        Nodo* aux_borrar = lista;
-        Nodo* anterior = NULL;
-
-        while ((aux_borrar != NULL) && (aux_borrar->c.dni != dni)) {
-            anterior = aux_borrar;
-            aux_borrar = aux_borrar->siguiente;
-        }
-
-        if (aux_borrar == NULL) {
-            cout << "El elemento no existe\n";
-        } else if (anterior == NULL) {
-            lista = lista->siguiente;
-            cout << "Elemento " << aux_borrar->c.dni << " eliminado\n";
-            delete aux_borrar;
-        } else {
-            anterior->siguiente = aux_borrar->siguiente;
-            cout << "Elemento " << aux_borrar->c.dni << " eliminado\n";
-            delete aux_borrar;
-        }
-    } else {
-        cout << "La lista esta vacia\n";
-    }
-}
-
-void eliminarLista(Nodo*& lista) {
-    Nodo* aux = NULL;
-    while (lista != NULL) {
-        aux = lista;
-        lista = aux->siguiente;
-        cout << "Elemento " << aux->c.dni << " eliminado\n";
-        delete aux;
-    }
 }
 
