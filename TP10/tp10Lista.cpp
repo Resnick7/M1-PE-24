@@ -1,12 +1,12 @@
-#include <iostream>
-#include <conio.h>
-#include <stdlib.h>
-#include <string>
+#include<iostream>
+#include<conio.h>
+#include<stdlib.h>
+#include<string>
 using namespace std;
 
 struct Cliente {
-    int dni;
     string nombre;
+    int dni;
     int edad;
 };
 
@@ -19,9 +19,10 @@ void menu();
 void cargarCliente(Cliente &);
 void insertarCliente(Nodo*&, Cliente);
 void mostrarLista(Nodo*);
-void buscarCliente(Nodo*, int);
-void buscarEdadesRepetidas(Nodo*, Nodo*);
-void calcularMayorDni(Nodo*&);
+void buscarCliente(Nodo*, Cliente);
+void eliminarLista(Nodo *&, Cliente &);
+void buscarEdadRepetida(Nodo*, Nodo*);
+void buscarMayorDni(Nodo*&);
 
 Nodo *lista1 = NULL;
 Nodo *lista2 = NULL;
@@ -33,8 +34,8 @@ int main() {
 }
 
 void menu() {
-    int opcion,dato;
-    Cliente c1,c2;
+    int opcion;
+    Cliente cliente;
 
     do {
         cout << "\t.:MENU:.\n";
@@ -50,15 +51,15 @@ void menu() {
         switch (opcion) {
             case 1:
             	cout<<"\tAgregando un Nuevo Cliente  a lista 1"<<endl;
-                cargarCliente(c1);
-                insertarCliente(lista1, c1);
+                cargarCliente(c);
+                insertarCliente(lista1, c);
                 cout << "\n";
                 system("pause");
                 break;
             case 2:
-            	cout<<"\tAgregando un Nuevo Cliente  a lista 1"<<endl;
-            	cargarCliente(c2);
-            	insertarCliente(lista2, c2);
+            	cout<<"\tAgregando un Nuevo Cliente  a lista 2"<<endl;
+            	cargarCliente(c);
+            	insertarCliente(lista2, c);
             	cout << "\n";
                 system("pause");
                 break;
@@ -73,7 +74,7 @@ void menu() {
             case 4:
             	//Buscar edades repetidas
                 cout << "\tBuscando edades repetidas... \n";
-                buscarEdadesRepetidas(lista1, lista2);
+                buscarEdadRepetida(lista1, lista2);
                 cout << "\n";
                 system("pause");
                 break;

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package java2mysql;
 
 import java.sql.PreparedStatement;
@@ -11,17 +7,13 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Cristian
- */
 public class Servicio extends SQLQuery{
     public void verTodos(){
         try {
-            this.conectar("127.0.0.1", "teatro", "root", ""); //Extiende de sqlQuery, que es la clase que hay adentro
+            this.conectar("127.0.0.1", "teatro", "root", "");
             this.consulta = this.conn.prepareStatement("SELECT nombre, rating FROM orquesta");
             this.datos = this.consulta.executeQuery();
-            while (this.datos.next()) {     // Recorremos todas las filas que vuelven de la consulta a base de datos           
+            while (this.datos.next()) {          
                 System.out.println("Nombre de la orquesta: "+this.datos.getString("nombre")+" y rating: "+this.datos.getString("rating"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -61,7 +53,7 @@ public class Servicio extends SQLQuery{
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Servicio.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-          desconectar();
+          this.desconectar();
     }
   }
 }

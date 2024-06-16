@@ -109,7 +109,7 @@ bool esVacia(const Cola& cola) {
 
 void llenarCola(Cola& cola) {
     int n;
-    cout << "¿Cuantos clientes desea agregar? ";
+    cout << "ï¿½Cuantos clientes desea agregar? ";
     cin >> n;
     for (int i = 0; i < n; ++i) {
         Cliente cliente;

@@ -1,10 +1,3 @@
-/*
-- Crear dos estructuras de cliente con Nombre, Dni y Edad)
-- Cargar dos estructuras de forma dinámica
-- Mostrar las estructuras sin borrarlas
-- Buscar el dni mayor de ambas
-- Comparar ambas para decir si hay edades repetidas
-*/
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
@@ -13,20 +6,22 @@ using namespace std;
 
 struct Cliente {
     string nombre;
-    string dni;
+    int dni;
     int edad;
 };
 
 struct Nodo {
-    Cliente cliente;
-    Nodo *siguiente;
+    Cliente c;
+    Nodo* siguiente;
 };
 
 void menu();
-void agregarCliente(Nodo *&, Cliente);
-void mostrarClientes(Nodo *);
-string buscarDniMayor(Nodo *, Nodo *);
-bool compararEdades(Nodo *, Nodo *);
+void cargarCliente(Cliente &);
+void insertarCliente(Nodo *&, Cliente);
+void mostrarPila(Nodo *);
+void buscarCliente(Nodo*, int);
+void buscarEdadRepetida(Nodo *, Nodo *);
+void buscarDniMayor(Nodo *);
 bool pilaVacia(Nodo *);
 
 int main() {
