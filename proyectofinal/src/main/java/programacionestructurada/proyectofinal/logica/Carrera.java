@@ -16,24 +16,25 @@ public class Carrera implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
     private String nombre;
-    @OneToMany (mappedBy="carre")
-    private LinkedList<Materia> listaMaterias;
-
+    
+    @OneToMany(mappedBy="carre")
+    private LinkedList<Inscripcion> listaInscripciones;
+    
     public Carrera() {
     }
 
-    public Carrera(int id, String nombre, LinkedList<Materia> listaMaterias) {
+    public Carrera(int id, String nombre, LinkedList<Inscripcion> listaInscripciones) {
         this.id = id;
         this.nombre = nombre;
-        this.listaMaterias = listaMaterias;
+        this.listaInscripciones = listaInscripciones;
     }
 
-    public LinkedList<Materia> getListaMaterias() {
-        return listaMaterias;
+    public LinkedList<Inscripcion> getListaInscripciones() {
+        return listaInscripciones;
     }
 
-    public void setListaMaterias(LinkedList<Materia> listaMaterias) {
-        this.listaMaterias = listaMaterias;
+    public void setListaInscripciones(LinkedList<Inscripcion> listaInscripciones) {
+        this.listaInscripciones = listaInscripciones;
     }
 
     public int getId() {

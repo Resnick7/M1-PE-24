@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import programacionestructurada.proyectofinal.logica.Alumno;
 import programacionestructurada.proyectofinal.logica.Carrera;
+import programacionestructurada.proyectofinal.logica.Inscripcion;
 import programacionestructurada.proyectofinal.logica.Materia;
 import programacionestructurada.proyectofinal.persistencia.exceptions.NonexistentEntityException;
 
@@ -14,6 +15,7 @@ public class ControladoraPersistencia {
     AlumnoJpaController aluJpa = new AlumnoJpaController();
     CarreraJpaController carreJpa = new CarreraJpaController();
     MateriaJpaController matJpa = new MateriaJpaController();
+    InscripcionJpaController insJpa = new InscripcionJpaController();
     
     // Alumno
     public void crearAlumno(Alumno alu) {
@@ -108,5 +110,35 @@ public class ControladoraPersistencia {
         return listaMateria;
     }
     
-    
+    //Incripcion
+
+    public void crearInscripcion(Inscripcion ins) {
+        insJpa.create(ins);
+    }
+
+    public void eliminarInscripcion(int id) {
+        try {
+            insJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void editarInscripcion(Inscripcion ins) {
+        try {
+            insJpa.edit(ins);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Inscripcion traerInscripcion(int id) {
+        return insJpa.findInscripcion(id);
+    }
+
+    public LinkedList<Inscripcion> traerListaInscripcion() {
+        List<Inscripcion> lista = insJpa.findInscripcionEntities();
+        LinkedList<Inscripcion> listaInscripcion = new LinkedList (lista);
+        return listaInscripcion;
+    }   
 }

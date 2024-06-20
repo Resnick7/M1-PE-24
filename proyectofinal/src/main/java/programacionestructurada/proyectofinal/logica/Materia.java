@@ -17,24 +17,28 @@ public class Materia implements Serializable {
     private String tipo;
     
     @ManyToOne
-    private Carrera carre;
+    private Alumno alu;
 
     public Materia() {
     }
 
-    public Materia(int id, String nombre, String tipo, Carrera carre) {
+    public Materia(int id, String nombre, String tipo, Alumno alu) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
-        this.carre = carre;
+        this.alu = alu;
     }
 
-    public Carrera getCarre() {
-        return carre;
+    public void setAlu(Alumno alu) {
+        this.alu = alu;
+    }
+    
+    public Alumno getAlu() {
+        return alu;
     }
 
-    public void setCarre(Carrera carre) {
-        this.carre = carre;
+    public void setCarre(Alumno alu) {
+        this.alu = alu;
     }
 
     public int getId() {
