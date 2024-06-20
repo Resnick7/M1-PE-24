@@ -2,12 +2,15 @@ package programacionestructurada.proyectofinal.logica;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,19 +25,33 @@ public class Alumno implements Serializable {
     
     @Temporal(TemporalType.DATE)
     private Date fechaNac;
-
+    
+    @OneToMany(mappedBy="alu")
+    private LinkedList<Materia> listaMaterias;
+    
     @ManyToOne
     private Inscripcion ins;
 
     public Alumno() {
     }
 
-    public Alumno(int id, String nombre, String apellido, Date fechaNac, Carrera carre) {
+    public Alumno(int id, String nombre, String apellido, Date fechaNac, LinkedList<Materia> listaMaterias, Inscripcion ins) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNac = fechaNac;
+
+        this.listaMaterias = listaMaterias;
         this.ins = ins;
+    }
+
+    public LinkedList<Materia> getListaMaterias() {
+        return listaMaterias;
+    }
+
+    public void setListaMaterias(LinkedList<Materia> listaMaterias) {
+        this.listaMaterias = listaMaterias;
+
     }
 
     public Inscripcion getIns() {
@@ -44,8 +61,6 @@ public class Alumno implements Serializable {
     public void setIns(Inscripcion ins) {
         this.ins = ins;
     }
-
-    
 
     public int getId() {
         return id;

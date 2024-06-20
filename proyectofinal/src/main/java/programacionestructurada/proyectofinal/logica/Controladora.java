@@ -70,4 +70,25 @@ public class Controladora {
     public LinkedList<Materia> traerListaMaterias (){
         return controlPersis.traerListaMaterias();
     }
+    
+    //Incripcion
+    public void crearInscripcion (Inscripcion ins){
+        controlPersis.crearInscripcion (ins);
+    }
+    
+    public void eliminarInscripcion(int id){
+        controlPersis.eliminarInscripcion(id);
+    }
+    
+    public void editarInscripcion(Inscripcion ins){
+        controlPersis.editarInscripcion(ins);
+    }
+    
+    public Inscripcion traerInscripcion(int id) {
+        return controlPersis.traerInscripcion(id);
+        }
+    
+    public LinkedList<Inscripcion> traerListaInscripcion (){
+        return controlPersis.traerListaInscripcion();
+    }
 }
