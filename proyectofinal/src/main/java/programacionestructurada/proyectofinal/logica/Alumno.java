@@ -31,7 +31,7 @@ public class Alumno implements Serializable {
     
     @ManyToOne
     private Inscripcion ins;
-    
+
     public Alumno() {
     }
 
@@ -40,6 +40,7 @@ public class Alumno implements Serializable {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNac = fechaNac;
+
         this.listaMaterias = listaMaterias;
         this.ins = ins;
     }
@@ -50,6 +51,7 @@ public class Alumno implements Serializable {
 
     public void setListaMaterias(LinkedList<Materia> listaMaterias) {
         this.listaMaterias = listaMaterias;
+
     }
 
     public Inscripcion getIns() {
