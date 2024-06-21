@@ -22,9 +22,6 @@ public class Inscripcion implements Serializable {
     @Basic
     private String nombre;
     
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    
     @OneToMany(mappedBy="ins")
     private LinkedList<Alumno> listaAlumnos;
     
@@ -34,10 +31,9 @@ public class Inscripcion implements Serializable {
     public Inscripcion() {
     }
 
-    public Inscripcion(int id, String nombre, Date fecha, LinkedList<Alumno> listaAlumnos, Carrera carre) {
+    public Inscripcion(int id, String nombre, LinkedList<Alumno> listaAlumnos, Carrera carre) {
         this.id = id;
         this.nombre = nombre;
-        this.fecha = fecha;
         this.listaAlumnos = listaAlumnos;
         this.carre = carre;
     }
@@ -73,13 +69,4 @@ public class Inscripcion implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-    
 }
